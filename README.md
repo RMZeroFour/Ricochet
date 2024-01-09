@@ -9,7 +9,7 @@ Uses CMake for the buildsystem, Conan for package management, and SDL2 for _game
 #### Prerequisites
 Ensure you have the following installed on your machine:
 - C++ compiler (≥ C++17)
-- CMake (≥ 3.20)
+- CMake (≥ 3.19)
 - Conan (≥ 2.0)
 
 #### Build process (Linux)
