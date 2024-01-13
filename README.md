@@ -2,8 +2,6 @@
 
 Welcome to Ricochet, a pinball game built in C++17.
 
-Uses CMake for the buildsystem, Conan for package management, and SDL2 for _game stuff_.
-
 ## Getting Started
 
 #### Prerequisites
@@ -33,7 +31,12 @@ Ensure you have the following installed on your machine:
     cmake --build --preset conan-release
     ```
 
-4. Run the game:
+4. (Optionally) Run unit tests with CTest:
+    ```bash
+    ctest --preset conan-release
+    ```
+
+5. Run the game:
 
     ```bash
     cd build/bin/Release/
@@ -42,9 +45,10 @@ Ensure you have the following installed on your machine:
 
 ## Made with
 
-- [CMake](https://cmake.org/)
-- [Conan](https://conan.io/)
-- [SDL2](https://www.libsdl.org/)
+- [CMake](https://cmake.org/) for the buildsystem.
+- [Conan](https://conan.io/) for package management.
+- [SDL2](https://www.libsdl.org/) for _game stuff_.
+- [GoogleTest](https://google.github.io/googletest/) for unit testing and mocking.
 
 ## License
 
