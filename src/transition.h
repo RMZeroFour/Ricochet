@@ -13,13 +13,13 @@ struct SwitchTransition { std::unique_ptr<StateBase> state; };
 using Transition = std::variant<PopTransition, QuitTransition,
     PushTransition, SwitchTransition>;
 
-Transition Pop() 
+inline Transition Pop() 
 {
     static PopTransition p{};
     return p; 
 }
 
-Transition Quit()
+inline Transition Quit()
 {
     static QuitTransition q{};
     return q;
