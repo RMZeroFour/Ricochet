@@ -1,5 +1,9 @@
 find_package(SDL2 REQUIRED CONFIG)
 
+# Write the project version to a file
+# which can be read in the code
+configure_file(metadata.h.in ${CMAKE_CURRENT_BINARY_DIR}/generated/metadata.h)
+
 # Core library containing sources common to 
 # both the executable and unit tests
 add_library(Ricochet_core INTERFACE)
@@ -12,6 +16,7 @@ target_include_directories(
     Ricochet_core 
     INTERFACE 
         .
+        ${CMAKE_CURRENT_BINARY_DIR}/generated
 )
 
 # Main executable for the game
