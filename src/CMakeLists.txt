@@ -25,6 +25,9 @@ target_sources(
     Ricochet_exe
     PRIVATE 
         main.cpp
+        states/sdlinitstate.cpp
+        states/dummystate.cpp
+        states/sdlquitstate.cpp
 )
 target_link_libraries(
     Ricochet_exe 

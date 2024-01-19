@@ -1,43 +1,16 @@
-#include <SDL2/SDL.h>
+#include "gamedata.h"
+#include "statemachine.h"
+#include "states/sdlinitstate.h"
 
-int main(int, char**)
+#include <SDL2/SDL_main.h>
+
+int main(int argc, char** argv)
 {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
-    {
-        SDL_Log("Failed to initialize SDL: %s", SDL_GetError());
-        return -1;
-    }
-
-    SDL_Window* window{};
-    SDL_Renderer* renderer{};
-    if (SDL_CreateWindowAndRenderer(640, 480, 0, &window, &renderer) < 0)
-    {
-        SDL_Log("Failed to create window and renderer: %s", SDL_GetError());
-        return -1;
-    }
+    GameData game{};
+    StateMachine fsm{ std::make_unique<SDLInitState>(game) };
     
-    SDL_SetWindowTitle(window, "Ricochet");
-
-    bool running{ true };
-    while (running)
-    {
-        SDL_Event e;
-        while (SDL_PollEvent(&e))
-        {
-            if (e.type == SDL_QUIT)
-            {
-                running = false;
-            }
-        }
-
-        SDL_SetRenderDrawColor(renderer, 100, 149, 237, 255);
-        SDL_RenderClear(renderer);
-        SDL_RenderPresent(renderer);
-    }
-
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+    while (!fsm.HasFinished())
+        fsm.ProcessCurrent();
 
     return 0;
 }
