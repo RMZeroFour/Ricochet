@@ -30,6 +30,7 @@ target_sources(
     Ricochet_exe
     PRIVATE 
         main.cpp
+        states/argsparserstate.cpp
         states/sdlinitstate.cpp
         states/dummystate.cpp
         states/sdlquitstate.cpp

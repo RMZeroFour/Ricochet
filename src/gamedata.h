@@ -2,6 +2,8 @@
 
 #include <SDL2/SDL.h>
 
+#include <string>
+#include <vector>
 #include <optional>
 
 struct SDLData
@@ -15,5 +17,6 @@ struct SDLData
 
 struct GameData
 {
+    std::vector<std::string> args;
     std::optional<SDLData> sdl;
 };

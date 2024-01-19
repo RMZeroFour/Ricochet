@@ -1,16 +1,19 @@
 #include "gamedata.h"
 #include "statemachine.h"
-#include "states/sdlinitstate.h"
+#include "states/argsparserstate.h"
 
 #include <SDL2/SDL_main.h>
 
 int main(int argc, char** argv)
 {
     GameData game{};
-    StateMachine fsm{ std::make_unique<SDLInitState>(game) };
+    for (size_t i = 1; i < argc; i++)
+        game.args.push_back(argv[i]);
+
+    StateMachine fsm{ std::make_unique<ArgsParserState>(game) };
     
     while (!fsm.HasFinished())
         fsm.ProcessCurrent();
-
+        
     return 0;
 }
