@@ -8,7 +8,7 @@ Welcome to Ricochet, a pinball game built in C++17.
 Ensure you have the following installed on your machine:
 - C++ compiler (≥ C++17)
 - CMake (≥ 3.20)
-- Conan (≥ 2.0)
+- vcpkg
 
 #### Build process (Linux)
 1. Clone the repository:
@@ -18,35 +18,29 @@ Ensure you have the following installed on your machine:
     cd Ricochet
     ```
 
-2. Install dependencies with Conan:
-    
+2. Build the project with CMake and vcpkg:
+
     ```bash
-    conan install . -b missing
+    cmake -S . -B build -D CMAKE_TOOLCHAIN_FILE="<path-to-vcpkg>/scripts/buildsystems/vcpkg.cmake"
+    cmake --build build
     ```
 
-3. Configure CMake and build the project:
-
+3. (Optionally) Run unit tests with CTest:
     ```bash
-    cmake --preset conan-release
-    cmake --build --preset conan-release
+    ctest --test-dir build
     ```
 
-4. (Optionally) Run unit tests with CTest:
-    ```bash
-    ctest --preset conan-release
-    ```
-
-5. Run the game:
+4. Run the game:
 
     ```bash
-    cd build/bin/Release/
+    cd build/bin/
     ./Ricochet
     ```
 
 ## Made with
 
 - [CMake](https://cmake.org/) for the buildsystem.
-- [Conan](https://conan.io/) for package management.
+- [vcpkg](https://vcpkg.io/) for package management.
 - [SDL2](https://www.libsdl.org/) for _game stuff_.
 - [GoogleTest](https://google.github.io/googletest/) for unit testing and mocking.
 
