@@ -1,0 +1,48 @@
+{
+	"version": 3,
+	"configurePresets": [
+		{
+			"name": "develop-default",
+			"binaryDir": "build/dev",
+			"toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+			"cacheVariables": {
+				"Ricochet_DEVELOPER_MODE": "ON",
+				"CMAKE_BUILD_TYPE": "Debug"
+			}
+		},
+		{
+			"name": "publish-default",
+			"binaryDir": "build/pub",
+			"toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+			"cacheVariables": {
+				"Ricochet_DEVELOPER_MODE": "OFF",
+				"CMAKE_BUILD_TYPE": "Release"
+			}
+		}
+	],
+	"buildPresets": [
+		{
+			"name": "develop-default",
+			"configurePreset": "develop-default",
+			"configuration": "Debug"
+		},
+		{
+			"name": "publish-default",
+			"configurePreset": "publish-default",
+			"configuration": "Release"
+		}
+	],
+	"testPresets": [
+		{
+			"name": "develop-default",
+			"configurePreset": "develop-default",
+			"output": {
+				"outputOnFailure": true
+			},
+			"execution": {
+				"noTestsAction": "error",
+				"stopOnFailure": true
+			}
+		}
+	]
+}

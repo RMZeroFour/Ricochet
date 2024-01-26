@@ -12,30 +12,30 @@ Ensure you have the following installed on your machine:
 
 #### Build process (Linux)
 1. Clone the repository:
-    
-    ```bash
-    git clone https://github.com/RMZeroFour/Ricochet.git
-    cd Ricochet
-    ```
+	
+	```bash
+	git clone https://github.com/RMZeroFour/Ricochet.git
+	cd Ricochet
+	```
 
 2. Build the project with CMake and vcpkg:
 
-    ```bash
-    cmake -S . -B build -D CMAKE_TOOLCHAIN_FILE="<path-to-vcpkg>/scripts/buildsystems/vcpkg.cmake"
-    cmake --build build
-    ```
+	```bash
+	cmake -S . -B build --toolchain "<path-to-vcpkg>/scripts/buildsystems/vcpkg.cmake"
+	cmake --build build
+	```
 
 3. (Optionally) Run unit tests with CTest:
-    ```bash
-    ctest --test-dir build
-    ```
+	```bash
+	ctest --test-dir build
+	```
 
 4. Run the game:
 
-    ```bash
-    cd build/bin/
-    ./Ricochet
-    ```
+	```bash
+	cd build/bin/
+	./Ricochet
+	```
 
 ## Made with
 

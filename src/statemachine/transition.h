@@ -11,28 +11,28 @@ struct PushTransition { std::unique_ptr<StateBase> state; };
 struct SwitchTransition { std::unique_ptr<StateBase> state; };
 
 using Transition = std::variant<PopTransition, QuitTransition,
-    PushTransition, SwitchTransition>;
+                                PushTransition, SwitchTransition>;
 
 inline Transition Pop() 
 {
-    static PopTransition p{};
-    return p; 
+	static PopTransition p{};
+	return p; 
 }
 
 inline Transition Quit()
 {
-    static QuitTransition q{};
-    return q;
+	static QuitTransition q{};
+	return q;
 }
 
 template<typename TState, class... Args>
 Transition Push(Args&&... args) 
 {
-    return PushTransition{ std::make_unique<TState>(args...) };
+	return PushTransition{ std::make_unique<TState>(args...) };
 }
 
 template<typename TState, class... Args>
 Transition Switch(Args&&... args) 
 {
-    return SwitchTransition{ std::make_unique<TState>(args...) };
+	return SwitchTransition{ std::make_unique<TState>(args...) };
 }

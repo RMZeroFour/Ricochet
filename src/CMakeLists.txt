@@ -1,44 +1,91 @@
+# ---- Third party libraries ----
 find_package(SDL2 REQUIRED CONFIG)
 
-# Write the project version to a file
-# which can be read in the code
-configure_file(metadata.h.in ${CMAKE_CURRENT_BINARY_DIR}/generated/metadata.h)
+if (Ricochet_BUILD_TESTS)
+	find_package(GTest REQUIRED CONFIG)
+endif()
 
-# Core library containing sources common to 
-# both the executable and unit tests
-add_library(Ricochet_core INTERFACE)
-target_sources(
-    Ricochet_core
-    INTERFACE
-        statemachine.cpp
-)
-target_include_directories(
-    Ricochet_core 
-    INTERFACE 
-        .
-        ${CMAKE_CURRENT_BINARY_DIR}/generated
+# ---- Auto-generated files ----
+set(generated_include_dir ${CMAKE_CURRENT_BINARY_DIR}/include)
+configure_file(
+	generated/buildinfo.h.in
+	${generated_include_dir}/generated/buildinfo.h
+	@ONLY
 )
 
-# Main executable for the game
+# ---- Main application ----
 add_executable(Ricochet_exe)
+
 set_target_properties(
-    Ricochet_exe 
-    PROPERTIES 
-        OUTPUT_NAME Ricochet
+	Ricochet_exe
+	PROPERTIES
+		OUTPUT_NAME Ricochet
 )
+
+target_compile_features(
+	Ricochet_exe
+	PRIVATE
+		cxx_std_17
+)
+
 target_sources(
-    Ricochet_exe
-    PRIVATE 
-        main.cpp
-        states/argsparserstate.cpp
-        states/sdlinitstate.cpp
-        states/dummystate.cpp
-        states/sdlquitstate.cpp
+	Ricochet_exe
+	PRIVATE
+		main.cpp
+		statemachine/statemachine.cpp
+		game/states/argsparserstate.cpp
+		game/states/sdlinitstate.cpp
+		game/states/dummystate.cpp
+		game/states/sdlquitstate.cpp
 )
+
+target_include_directories(
+	Ricochet_exe
+	PRIVATE
+		.
+		${generated_include_dir}
+)
+
 target_link_libraries(
-    Ricochet_exe 
-    PRIVATE 
-        Ricochet_core 
-        SDL2::SDL2
-        SDL2::SDL2main
+	Ricochet_exe
+	PRIVATE
+		SDL2::SDL2
+		SDL2::SDL2main
 )
+
+install(TARGETS Ricochet_exe RUNTIME)
+
+# ---- Tests target ----
+if (Ricochet_BUILD_TESTS)
+	add_executable(Ricochet_test)
+
+	target_compile_features(
+		Ricochet_test
+		PRIVATE
+			cxx_std_17
+	)
+
+	target_sources(
+		Ricochet_test
+		PRIVATE
+			statemachine/statemachine.cpp
+			statemachine/statemachine.test.cpp
+	)
+
+	target_include_directories(
+		Ricochet_test
+		PRIVATE
+			.
+			${generated_include_dir}
+	)
+
+	target_link_libraries(
+		Ricochet_test
+		PRIVATE
+			GTest::gtest
+			GTest::gmock_main
+	)
+
+	include(GoogleTest)
+	gtest_discover_tests(Ricochet_test)
+endif()
