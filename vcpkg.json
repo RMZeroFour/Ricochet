@@ -4,6 +4,7 @@
   "dependencies": [
     "gtest",
     "sdl2",
-    "spdlog"
+    "spdlog",
+    "argh"
   ]
 }

@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL.h>
 #include <spdlog/spdlog.h>
+#include <argh.h>
 
 #include <memory>
 #include <optional>
@@ -19,7 +20,7 @@ struct SDLData
 
 struct GameData
 {
-	std::vector<std::string> args;
+	argh::parser args;
 	std::shared_ptr<spdlog::logger> logger;
 	std::optional<SDLData> sdl;
 };

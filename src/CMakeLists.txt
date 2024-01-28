@@ -1,4 +1,5 @@
 # ---- Third party libraries ----
+find_package(argh REQUIRED CONFIG)
 find_package(SDL2 REQUIRED CONFIG)
 find_package(spdlog REQUIRED CONFIG)
 
@@ -51,6 +52,7 @@ target_include_directories(
 target_link_libraries(
 	Ricochet_exe
 	PRIVATE
+		argh
 		SDL2::SDL2
 		SDL2::SDL2main
 		spdlog::spdlog

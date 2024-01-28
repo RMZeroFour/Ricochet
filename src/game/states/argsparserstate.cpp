@@ -3,41 +3,41 @@
 #include "generated/buildinfo.h"
 #include "game/states/loginitstate.h"
 
+#include <argh.h>
+
 #include <iostream>
 
-static void PrintHelp()
+namespace
 {
-	std::cout << "Options:" << '\n';
-	std::cout << "-h/--help" << '\t' << "Print this dialog" << '\n';
-	std::cout << "-a/--about" << '\t' << "Print program metadata" << '\n';
-}
+	void PrintHelp()
+	{
+		std::cout << "Options:" << '\n';
+		std::cout << "-h/--help" << "\t\t" << "Print this dialog" << '\n';
+		std::cout << "-a/--about" << "\t\t" << "Print program metadata" << '\n';
+	}
 
-static void PrintAbout()
-{
-	std::cout << Ricochet_NAME << " v" << Ricochet_VERSION << '\n';
-	std::cout << Ricochet_DESCRIPTION << '\n';
-	std::cout << Ricochet_HOMEPAGE_URL << '\n';
-}
-
-static void PrintInvalid(const std::string& arg)
-{
-	std::cout << "Invalid argument '" << arg << "' was given." << '\n';
-	std::cout << "Use the -h argument to list all valid arguments." << '\n';
+	void PrintAbout()
+	{
+		std::cout << Ricochet_NAME << " v" << Ricochet_VERSION << '\n';
+		std::cout << Ricochet_DESCRIPTION << '\n';
+		std::cout << Ricochet_HOMEPAGE_URL << '\n';
+	}
 }
 
 Transition ArgsParserState::Process()
 {
-	for (const std::string& arg : _game.args)
+	_game.args.parse(_argc, _argv);
+
+	if (_game.args[{ "-h", "--help" }])
 	{
-		if (arg == "-h" || arg == "--help")
-			PrintHelp();
-		else if (arg == "-a" || arg == "--about")
-			PrintAbout();
-		else
-			PrintInvalid(arg);
-		
+		PrintHelp();
 		return Quit();
 	}
-	
-	return Push<LogInitState>(_game);
+	else if (_game.args[{ "-a", "--about" }])
+	{
+		PrintAbout();
+		return Quit();
+	}
+
+	return Switch<LogInitState>(_game);
 }
