@@ -1,7 +1,6 @@
 #include "game/states/imguiinitstate.h"
 
 #include "game/states/dummystate.h"
-#include "game/states/sdlquitstate.h"
 #include "helpers/imgui_block.h"
 
 #include <imgui.h>
@@ -10,10 +9,8 @@
 
 Transition ImGuiInitState::Process()
 {
-	if (!_game.sdl.has_value())
-		return Switch<SDLQuitState>(_game);
 	SDLData& sdl{ _game.sdl.value() };
-
+	
 	IMGUI_BLOCK_BEGIN();
 	{
 		IMGUI_CHECKVERSION();

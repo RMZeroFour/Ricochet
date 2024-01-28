@@ -9,8 +9,6 @@
 
 Transition DummyState::Process()
 {
-	if (!_game.sdl.has_value())
-		return Switch<ImGuiQuitState>(_game);
 	SDLData& sdl{ _game.sdl.value() };
 
 	bool running{ true };

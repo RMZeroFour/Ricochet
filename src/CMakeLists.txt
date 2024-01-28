@@ -42,6 +42,7 @@ target_sources(
 		game/states/dummystate.cpp
 		game/states/imguiquitstate.cpp
 		game/states/sdlquitstate.cpp
+		game/states/crashstate.cpp
 )
 
 target_include_directories(
