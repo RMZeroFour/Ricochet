@@ -26,9 +26,5 @@ Transition LogInitState::Process()
 	_game.logger->set_level(spdlog::level::debug);
 	_game.logger->flush_on(spdlog::level::warn);
 
-	LOG_DEBUG(_game.logger, "This should not be visible if Ricochet_ENABLE_DEBUG_LOGGING is off");
-	LOG_WARN(_game.logger, "This should be visible regardless of Ricochet_ENABLE_DEBUG_LOGGING");
-	LOG_ERROR(_game.logger, "There's an {} here!", "error");
-
  	return Switch<SDLInitState>(_game);
 }
