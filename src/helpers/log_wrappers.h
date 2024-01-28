@@ -1,6 +1,5 @@
 #pragma once
 
-/*
 #include <spdlog/common.h>
 
 #define SOURCE_LOC spdlog::source_loc{ __FILE__, __LINE__, SPDLOG_FUNCTION }
@@ -25,4 +24,3 @@
 	{                                                             \
 		logger->log(SOURCE_LOC, spdlog::level::err, __VA_ARGS__); \
 	} while (false)
-*/

@@ -1,5 +1,6 @@
 # ---- Third party libraries ----
 find_package(SDL2 REQUIRED CONFIG)
+find_package(spdlog REQUIRED CONFIG)
 
 if (Ricochet_BUILD_TESTS)
 	find_package(GTest REQUIRED CONFIG)
@@ -34,6 +35,7 @@ target_sources(
 		main.cpp
 		statemachine/statemachine.cpp
 		game/states/argsparserstate.cpp
+		game/states/loginitstate.cpp
 		game/states/sdlinitstate.cpp
 		game/states/dummystate.cpp
 		game/states/sdlquitstate.cpp
@@ -51,6 +53,7 @@ target_link_libraries(
 	PRIVATE
 		SDL2::SDL2
 		SDL2::SDL2main
+		spdlog::spdlog
 )
 
 install(TARGETS Ricochet_exe RUNTIME)

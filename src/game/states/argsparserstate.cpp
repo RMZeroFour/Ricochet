@@ -1,7 +1,7 @@
 #include "game/states/argsparserstate.h"
 
 #include "generated/buildinfo.h"
-#include "game/states/sdlinitstate.h"
+#include "game/states/loginitstate.h"
 
 #include <iostream>
 
@@ -39,5 +39,5 @@ Transition ArgsParserState::Process()
 		return Quit();
 	}
 	
-	return Push<SDLInitState>(_game);
+	return Push<LogInitState>(_game);
 }
