@@ -10,6 +10,8 @@ Ensure you have the following installed on your machine:
 - CMake (≥ 3.20)
 - vcpkg
 
+To use the provided presets, which use the vcpkg toolchain for CMake, set the `VCPKG_ROOT` environment variable to the path where vcpkg was installed on your computer.
+
 #### Build process (Linux)
 1. Clone the repository:
 	
@@ -21,19 +23,19 @@ Ensure you have the following installed on your machine:
 2. Build the project with CMake and vcpkg:
 
 	```bash
-	cmake -S . -B build --toolchain "<path-to-vcpkg>/scripts/buildsystems/vcpkg.cmake"
-	cmake --build build
+	cmake --preset develop-default
+	cmake --build --preset develop-default
 	```
 
 3. (Optionally) Run unit tests with CTest:
 	```bash
-	ctest --test-dir build
+	ctest --preset develop-default
 	```
 
 4. Run the game:
 
 	```bash
-	cd build/bin/
+	cd build/dev/bin/
 	./Ricochet
 	```
 
