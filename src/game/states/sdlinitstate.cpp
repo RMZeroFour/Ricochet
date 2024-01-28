@@ -1,6 +1,6 @@
 #include "game/states/sdlinitstate.h"
 
-#include "game/states/dummystate.h"
+#include "game/states/imguiinitstate.h"
 #include "game/states/sdlquitstate.h"
 #include "helpers/log_wrappers.h"
 
@@ -27,5 +27,5 @@ Transition SDLInitState::Process()
 
 	_game.sdl = { window, renderer, w, h };
 
-	return Switch<DummyState>(_game);
+	return Switch<ImGuiInitState>(_game);
 }

@@ -38,7 +38,9 @@ target_sources(
 		game/states/argsparserstate.cpp
 		game/states/loginitstate.cpp
 		game/states/sdlinitstate.cpp
+		game/states/imguiinitstate.cpp
 		game/states/dummystate.cpp
+		game/states/imguiquitstate.cpp
 		game/states/sdlquitstate.cpp
 )
 
