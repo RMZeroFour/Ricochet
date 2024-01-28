@@ -3,6 +3,10 @@ find_package(argh REQUIRED CONFIG)
 find_package(SDL2 REQUIRED CONFIG)
 find_package(spdlog REQUIRED CONFIG)
 
+if (Ricochet_ENABLE_IMGUI)
+	find_package(imgui REQUIRED CONFIG)
+endif()
+
 if (Ricochet_BUILD_TESTS)
 	find_package(GTest REQUIRED CONFIG)
 endif()
@@ -24,11 +28,7 @@ set_target_properties(
 		OUTPUT_NAME Ricochet
 )
 
-target_compile_features(
-	Ricochet_exe
-	PRIVATE
-		cxx_std_17
-)
+target_compile_features(Ricochet_exe PRIVATE cxx_std_17)
 
 target_sources(
 	Ricochet_exe
@@ -58,17 +58,17 @@ target_link_libraries(
 		spdlog::spdlog
 )
 
+if (Ricochet_ENABLE_IMGUI)
+	target_link_libraries(Ricochet_exe PRIVATE imgui::imgui)
+endif()
+
 install(TARGETS Ricochet_exe RUNTIME)
 
 # ---- Tests target ----
 if (Ricochet_BUILD_TESTS)
 	add_executable(Ricochet_test)
 
-	target_compile_features(
-		Ricochet_test
-		PRIVATE
-			cxx_std_17
-	)
+	target_compile_features(Ricochet_test PRIVATE cxx_std_17)
 
 	target_sources(
 		Ricochet_test

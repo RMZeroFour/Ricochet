@@ -8,3 +8,4 @@
 #cmakedefine01 Ricochet_DEVELOPER_MODE
 #cmakedefine01 Ricochet_BUILD_TESTS
 #cmakedefine01 Ricochet_ENABLE_DEBUG_LOGGING
+#cmakedefine01 Ricochet_ENABLE_IMGUI

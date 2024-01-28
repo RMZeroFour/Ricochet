@@ -18,3 +18,8 @@ cmake_dependent_option(
 	"Enables debug level log statements"
 	ON #[[if]] "Ricochet_DEVELOPER_MODE" #[[else]] OFF
 )
+cmake_dependent_option(
+	Ricochet_ENABLE_IMGUI
+	"Enables drawing debug UI with imgui"
+	ON #[[if]] "Ricochet_DEVELOPER_MODE" #[[else]] OFF
+)

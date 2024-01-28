@@ -2,9 +2,17 @@
   "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
   "builtin-baseline": "a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6",
   "dependencies": [
+    "argh",
     "gtest",
     "sdl2",
     "spdlog",
-    "argh"
+    {
+      "name": "imgui",
+      "default-features": false,
+      "features": [
+        "sdl2-binding",
+        "sdl2-renderer-binding"
+      ]
+    }
   ]
 }
