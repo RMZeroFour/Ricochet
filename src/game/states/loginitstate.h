@@ -1,6 +1,7 @@
 #pragma once
 
 #include "game/gamestatebase.h"
+#include "helpers/log_wrappers.h"
 
 class LogInitState : public GameStateBase
 {
@@ -10,5 +11,5 @@ public:
 public:
 	virtual void OnEnter() { }
 	virtual Transition Process();
-	virtual void OnExit() { }
+	virtual void OnExit() { LOG_DEBUG(_game.logger, "Exited LogInitState"); }
 };
