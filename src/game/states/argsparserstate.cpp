@@ -14,6 +14,7 @@ namespace
 		std::cout << "Options:" << '\n';
 		std::cout << "-h/--help" << "\t\t" << "Print this dialog" << '\n';
 		std::cout << "-a/--about" << "\t\t" << "Print program metadata" << '\n';
+		std::cout << "-l/--log <file>" << "\t\t" << "Redirect log output to <file>" << '\n';
 	}
 
 	void PrintAbout()
@@ -26,6 +27,7 @@ namespace
 
 Transition ArgsParserState::Process()
 {
+	_game.args.add_params({ "-l", "--log" });
 	_game.args.parse(_argc, _argv);
 
 	if (_game.args[{ "-h", "--help" }])

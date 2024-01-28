@@ -1,5 +1,7 @@
 #pragma once
 
+#include "generated/buildinfo.h"
+
 #include <spdlog/common.h>
 
 #define SOURCE_LOC spdlog::source_loc{ __FILE__, __LINE__, SPDLOG_FUNCTION }
