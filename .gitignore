@@ -86,3 +86,6 @@ build/
 
 ### Local CMake presets
 CMakeUserPresets.json
+
+### Dear ImGui config
+imgui.ini
