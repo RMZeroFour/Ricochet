@@ -15,6 +15,12 @@
 		}                                                               \
 	} while (false)
 	
+#define LOG_INFO(logger, ...)                                      \
+	do                                                             \
+	{                                                              \
+		logger->log(SOURCE_LOC, spdlog::level::info, __VA_ARGS__); \
+	} while (false)
+	
 #define LOG_WARN(logger, ...)                                      \
 	do                                                             \
 	{                                                              \
