@@ -1,6 +1,7 @@
 # ---- Third party libraries ----
 find_package(argh REQUIRED CONFIG)
 find_package(SDL2 REQUIRED CONFIG)
+find_package(SDL2_image REQUIRED CONFIG)
 find_package(spdlog REQUIRED CONFIG)
 
 if (Ricochet_ENABLE_IMGUI)
@@ -56,14 +57,26 @@ target_link_libraries(
 	Ricochet_exe
 	PRIVATE
 		argh
-		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
+		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,
+			SDL2::SDL2,SDL2::SDL2-static>
 		$<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
+		$<IF:$<TARGET_EXISTS:SDL2_image::SDL2_image>,
+			SDL2_image::SDL2_image,SDL2_image::SDL2_image-static>
 		spdlog::spdlog
 )
 
 if (Ricochet_ENABLE_IMGUI)
 	target_link_libraries(Ricochet_exe PRIVATE imgui::imgui)
 endif()
+
+# Temporarily use the icon as a texture
+# in code until more are added
+add_custom_command(
+	TARGET Ricochet_exe POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different
+		${CMAKE_SOURCE_DIR}/data/app/Icon.png
+		$<TARGET_FILE_DIR:Ricochet_exe>/Icon.png
+)
 
 install(TARGETS Ricochet_exe RUNTIME)
 

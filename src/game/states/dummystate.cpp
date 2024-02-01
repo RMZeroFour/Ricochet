@@ -6,11 +6,15 @@
 #include <imgui.h>
 #include <imgui_impl_sdl2.h>
 #include <imgui_impl_sdlrenderer2.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 Transition DummyState::Process()
 {
 	SDLData& sdl{ _game.sdl.value() };
 
+	SDL_Texture* icon{ IMG_LoadTexture(sdl.renderer, "Icon.png") };
+	
 	bool running{ true };
 	while (running)
 	{
@@ -34,24 +38,22 @@ Transition DummyState::Process()
 
 		int x, y;
 		SDL_GetMouseState(&x, &y);
-		SDL_Rect r{ x - 10, y - 10, 20, 20 };
+		SDL_Rect r{ x - 32, y - 32, 64, 64 };
 		SDL_SetRenderDrawColor(sdl.renderer, 255, 0, 0, 255);
-		SDL_RenderFillRect(sdl.renderer, &r);
+		SDL_RenderCopy(sdl.renderer, icon, nullptr, &r);
 		r.x = sdl.width - r.x;
-		SDL_RenderFillRect(sdl.renderer, &r);
+		SDL_RenderCopy(sdl.renderer, icon, nullptr, &r);
 		r.y = sdl.height - r.y;
-		SDL_RenderFillRect(sdl.renderer, &r);
+		SDL_RenderCopy(sdl.renderer, icon, nullptr, &r);
 		r.x = sdl.width - r.x;
-		SDL_RenderFillRect(sdl.renderer, &r);
+		SDL_RenderCopy(sdl.renderer, icon, nullptr, &r);
 
 		IMGUI_BLOCK_BEGIN();
 		{
 			ImGui_ImplSDLRenderer2_NewFrame();
 			ImGui_ImplSDL2_NewFrame();
 			ImGui::NewFrame();
-
-			ImGui::ShowDemoWindow();
-
+			
 			ImGui::Render();
 			ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData());
 		}
@@ -59,6 +61,8 @@ Transition DummyState::Process()
 
 		SDL_RenderPresent(sdl.renderer);
 	}
+	
+	SDL_DestroyTexture(icon);
 
 	return Switch<ImGuiQuitState>(_game);
 }
