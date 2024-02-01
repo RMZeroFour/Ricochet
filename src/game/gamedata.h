@@ -1,5 +1,7 @@
 #pragma once
 
+#include "game/texturecache.h"
+
 #include <SDL2/SDL.h>
 #include <spdlog/spdlog.h>
 #include <argh.h>
@@ -16,6 +18,8 @@ struct SDLData
 	
 	int width;
 	int height;
+	
+	TextureCache textures;
 };
 
 struct GameData

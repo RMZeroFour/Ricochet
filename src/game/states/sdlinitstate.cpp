@@ -21,7 +21,7 @@ Transition SDLInitState::Process()
 		LOG_ERROR(_game.logger, "Failed to create window and renderer: {}", SDL_GetError());
 		return Switch<CrashState>(_game);
 	}
-	
+
 	int w, h;
 	if (SDL_GetRendererOutputSize(renderer, &w, &h) < 0)
 	{
@@ -31,13 +31,17 @@ Transition SDLInitState::Process()
 
 	SDL_SetWindowTitle(window, "Ricochet");
 
-	_game.sdl = { window, renderer, w, h };
+	_game.sdl = { window, renderer, w, h, {} };
 
-	if((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) == 0)
+	if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) == 0)
 	{
 		LOG_ERROR(_game.logger, "Failed to enable PNG loading: {}", IMG_GetError());
 		return Switch<CrashState>(_game);
 	}
+	
+	SDL_Texture* icon{ IMG_LoadTexture(renderer, "Icon.png") };
+	_game.sdl->textures.Load("Icon", icon);
+	LOG_INFO(_game.logger, "Loaded Icon texture");
 
 	return Switch<ImGuiInitState>(_game);
 }

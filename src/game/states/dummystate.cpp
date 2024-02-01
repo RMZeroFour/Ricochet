@@ -13,7 +13,7 @@ Transition DummyState::Process()
 {
 	SDLData& sdl{ _game.sdl.value() };
 
-	SDL_Texture* icon{ IMG_LoadTexture(sdl.renderer, "Icon.png") };
+	Texture i{ sdl.textures.Fetch("Icon") };
 	
 	bool running{ true };
 	while (running)
@@ -40,13 +40,13 @@ Transition DummyState::Process()
 		SDL_GetMouseState(&x, &y);
 		SDL_Rect r{ x - 32, y - 32, 64, 64 };
 		SDL_SetRenderDrawColor(sdl.renderer, 255, 0, 0, 255);
-		SDL_RenderCopy(sdl.renderer, icon, nullptr, &r);
+		SDL_RenderCopy(sdl.renderer, i.texture, &i.rect, &r);
 		r.x = sdl.width - r.x;
-		SDL_RenderCopy(sdl.renderer, icon, nullptr, &r);
+		SDL_RenderCopy(sdl.renderer, i.texture, &i.rect, &r);
 		r.y = sdl.height - r.y;
-		SDL_RenderCopy(sdl.renderer, icon, nullptr, &r);
+		SDL_RenderCopy(sdl.renderer, i.texture, &i.rect, &r);
 		r.x = sdl.width - r.x;
-		SDL_RenderCopy(sdl.renderer, icon, nullptr, &r);
+		SDL_RenderCopy(sdl.renderer, i.texture, &i.rect, &r);
 
 		IMGUI_BLOCK_BEGIN();
 		{
@@ -62,7 +62,5 @@ Transition DummyState::Process()
 		SDL_RenderPresent(sdl.renderer);
 	}
 	
-	SDL_DestroyTexture(icon);
-
 	return Switch<ImGuiQuitState>(_game);
 }
