@@ -12,8 +12,8 @@ namespace
 	void PrintHelp()
 	{
 		std::cout << "Options:" << '\n';
-		std::cout << "-h/--help" << "\t\t" << "Print this dialog" << '\n';
-		std::cout << "-a/--about" << "\t\t" << "Print program metadata" << '\n';
+		std::cout << "-h/--help" << "\t\t" << "Print commandline help and exit" << '\n';
+		std::cout << "-a/--about" << "\t\t" << "Print program metadata and exit" << '\n';
 		std::cout << "-l/--log <file>" << "\t\t" << "Redirect log output to <file>" << '\n';
 	}
 
@@ -21,7 +21,8 @@ namespace
 	{
 		std::cout << Ricochet_NAME << " v" << Ricochet_VERSION << '\n';
 		std::cout << Ricochet_DESCRIPTION << '\n';
-		std::cout << Ricochet_HOMEPAGE_URL << '\n';
+		std::cout << "Project Website: " << Ricochet_HOMEPAGE_URL << '\n';
+		std::cout << "Maintained By: " << Ricochet_MAINTAINER << '\n';
 	}
 }
 

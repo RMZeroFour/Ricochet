@@ -1,9 +1,10 @@
 #pragma once
 
 #define Ricochet_NAME "@PROJECT_NAME@"
-#define Ricochet_VERSION "@PROJECT_VERSION@"
-#define Ricochet_HOMEPAGE_URL "@PROJECT_HOMEPAGE_URL@"
-#define Ricochet_DESCRIPTION "@PROJECT_DESCRIPTION@"
+#define Ricochet_VERSION "@Ricochet_VERSION@"
+#define Ricochet_HOMEPAGE_URL "@Ricochet_HOMEPAGE_URL@"
+#define Ricochet_DESCRIPTION "@Ricochet_DESCRIPTION@"
+#define Ricochet_MAINTAINER "@Ricochet_MAINTAINER@"
 
 #cmakedefine01 Ricochet_DEVELOPER_MODE
 #cmakedefine01 Ricochet_BUILD_TESTS

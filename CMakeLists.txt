@@ -10,6 +10,8 @@ project(
 	LANGUAGES CXX
 )
 
+set(Ricochet_MAINTAINER RMZeroFour)
+
 # ---- Helper modules ----
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 include(EnableCCache)
