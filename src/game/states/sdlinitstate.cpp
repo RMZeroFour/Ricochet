@@ -31,7 +31,7 @@ Transition SDLInitState::Process()
 
 	SDL_SetWindowTitle(window, "Ricochet");
 
-	_game.sdl = { window, renderer, w, h, {} };
+	_game.sdl = SDLData{ window, renderer, w, h };
 
 	if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) == 0)
 	{
