@@ -10,3 +10,5 @@
 #cmakedefine01 Ricochet_BUILD_TESTS
 #cmakedefine01 Ricochet_ENABLE_DEBUG_LOGGING
 #cmakedefine01 Ricochet_ENABLE_IMGUI
+
+#define Ricochet_DATA_DIR "@Ricochet_DATA_DIR@"

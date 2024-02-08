@@ -23,3 +23,9 @@ cmake_dependent_option(
 	"Enables drawing debug UI with imgui"
 	ON #[[if]] "Ricochet_DEVELOPER_MODE" #[[else]] OFF
 )
+
+set(
+	Ricochet_DATA_DIR "../share/Ricochet"
+	CACHE STRING
+	"Relative path to data directory from executable"
+)

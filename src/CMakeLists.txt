@@ -69,13 +69,11 @@ if (Ricochet_ENABLE_IMGUI)
 	target_link_libraries(Ricochet_exe PRIVATE imgui::imgui)
 endif()
 
-# Temporarily use the icon as a texture
-# in code until more are added
 add_custom_command(
 	TARGET Ricochet_exe POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different
-		${CMAKE_SOURCE_DIR}/data/app/Icon.png
-		$<TARGET_FILE_DIR:Ricochet_exe>/Icon.png
+	COMMAND ${CMAKE_COMMAND} -E copy_directory
+		${CMAKE_SOURCE_DIR}/data/
+		$<TARGET_FILE_DIR:Ricochet_exe>/${Ricochet_DATA_DIR}
 )
 
 install(TARGETS Ricochet_exe RUNTIME)
