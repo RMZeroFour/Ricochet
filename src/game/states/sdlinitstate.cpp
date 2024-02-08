@@ -64,7 +64,7 @@ Transition SDLInitState::Process()
 	std::filesystem::path iconPath{ _game.readRoot / "app" / "Icon.png" };
 	SDL_Texture* icon{ IMG_LoadTexture(renderer, iconPath.string().c_str()) };
 	LOG_INFO(_game.logger, "Loaded 'Icon' texture ({})", iconPath.string().c_str());
-	_game.sdl->textures.Load("Icon", icon);
+	_game.sdl->textures.Register("Icon", icon);
 
 	return Switch<ImGuiInitState>(_game);
 }

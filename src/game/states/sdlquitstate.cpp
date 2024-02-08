@@ -4,7 +4,7 @@
 
 Transition SDLQuitState::Process()
 {
-	_game.sdl->textures.UnloadAll();
+	_game.sdl->textures.UnregisterAll();
 	LOG_INFO(_game.logger, "Unloaded all textures");
 
 	IMG_Quit();

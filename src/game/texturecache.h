@@ -14,7 +14,7 @@ public:
 	TextureCache() : _textures{} { }
 
 public:
-	void Load(const std::string& key, SDL_Texture* tex)
+	void Register(const std::string& key, SDL_Texture* tex)
 	{
 		_textures.emplace(key, TexturePtr{ tex });
 	}
@@ -35,12 +35,12 @@ public:
 		return { ptr.get(), x, y, w, h };
 	}
 	
-	void Unload(const std::string& key)
+	void Unregister(const std::string& key)
 	{
 		_textures.erase(key);
 	}
 	
-	void UnloadAll()
+	void UnregisterAll()
 	{
 		_textures.clear();
 	}
