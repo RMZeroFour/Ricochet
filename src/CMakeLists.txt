@@ -13,10 +13,10 @@ if (Ricochet_BUILD_TESTS)
 endif()
 
 # ---- Auto-generated files ----
-set(generated_include_dir ${CMAKE_CURRENT_BINARY_DIR}/include)
+set(_generated_include_dir ${CMAKE_CURRENT_BINARY_DIR}/include)
 configure_file(
 	generated/buildinfo.h.in
-	${generated_include_dir}/generated/buildinfo.h
+	${_generated_include_dir}/generated/buildinfo.h
 	@ONLY
 )
 
@@ -50,7 +50,7 @@ target_include_directories(
 	Ricochet_exe
 	PRIVATE
 		.
-		${generated_include_dir}
+		${_generated_include_dir}
 )
 
 target_link_libraries(
@@ -69,11 +69,13 @@ if (Ricochet_ENABLE_IMGUI)
 	target_link_libraries(Ricochet_exe PRIVATE imgui::imgui)
 endif()
 
-add_custom_command(
-	TARGET Ricochet_exe POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_directory
-		${CMAKE_SOURCE_DIR}/data/
-		$<TARGET_FILE_DIR:Ricochet_exe>/${Ricochet_DATA_DIR}
+# During build time, symlink the assets directory near the 
+# build directory. This allows not having to copy the assets
+# directory during development after every configure.
+SymlinkAssets(
+	Ricochet_exe
+	FROM ${CMAKE_SOURCE_DIR}/data/
+	TO ${Ricochet_DATA_DIR}
 )
 
 install(TARGETS Ricochet_exe RUNTIME)
@@ -95,7 +97,7 @@ if (Ricochet_BUILD_TESTS)
 		Ricochet_test
 		PRIVATE
 			.
-			${generated_include_dir}
+			${_generated_include_dir}
 	)
 
 	target_link_libraries(

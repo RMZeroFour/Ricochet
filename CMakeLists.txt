@@ -16,6 +16,7 @@ set(Ricochet_MAINTAINER RMZeroFour)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 include(EnableCCache)
 include(BuildOptions)
+include(SymlinkAssets)
 include(CTest)
 
 add_subdirectory(src bin)
