@@ -61,10 +61,10 @@ Transition SDLInitState::Process()
 		return Switch<CrashState>(_game);
 	}
 
-	std::filesystem::path iconPath{ _game.readRoot / "app" / "Icon.png" };
+	std::filesystem::path iconPath{ _game.readRoot / "textures" / "Ball.png" };
 	SDL_Texture* icon{ IMG_LoadTexture(renderer, iconPath.string().c_str()) };
-	LOG_INFO(_game.logger, "Loaded 'Icon' texture ({})", iconPath.string().c_str());
-	_game.sdl->textures.Register("Icon", icon);
+	LOG_INFO(_game.logger, "Loaded 'Ball' texture ({})", iconPath.string().c_str());
+	_game.sdl->textures.Register("Ball", icon);
 
 	return Switch<ImGuiInitState>(_game);
 }

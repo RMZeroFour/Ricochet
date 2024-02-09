@@ -89,3 +89,6 @@ CMakeUserPresets.json
 
 ### Dear ImGui config
 imgui.ini
+
+### Designs, art and other raw files
+raw/

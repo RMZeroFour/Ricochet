@@ -14,7 +14,7 @@ Transition DummyState::Process()
 {
 	SDLData& sdl{ _game.sdl.value() };
 
-	Texture i{ sdl.textures.Fetch("Icon") };
+	Texture i{ sdl.textures.Fetch("Ball") };
 	
 	bool running{ true };
 	while (running)
@@ -39,7 +39,7 @@ Transition DummyState::Process()
 
 		int x, y;
 		SDL_GetMouseState(&x, &y);
-		SDL_Rect r{ 0, 0, 64, 64 };
+		SDL_Rect r{ 0, 0, 32, 32 };
 		SetCenter(r, x, y);
 		SDL_SetRenderDrawColor(sdl.renderer, 255, 0, 0, 255);
 		SDL_RenderCopy(sdl.renderer, i.texture, &i.rect, &r);
