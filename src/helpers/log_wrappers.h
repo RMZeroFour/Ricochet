@@ -1,6 +1,6 @@
 #pragma once
 
-#include "generated/buildinfo.h"
+#include "buildinfo.h"
 
 #include <spdlog/common.h>
 

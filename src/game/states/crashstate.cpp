@@ -1,6 +1,6 @@
 #include "game/states/crashstate.h"
 
-#include "generated/buildinfo.h"
+#include "buildinfo.h"
 #include "helpers/log_wrappers.h"
 
 #include <SDL2/SDL_messagebox.h>

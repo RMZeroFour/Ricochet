@@ -1,7 +1,7 @@
 #include "game/states/loginitstate.h"
 
 #include "game/states/sdlinitstate.h"
-#include "generated/buildinfo.h"
+#include "buildinfo.h"
 #include "helpers/log_wrappers.h"
 
 #include <spdlog/sinks/stdout_color_sinks.h>
@@ -34,8 +34,6 @@ namespace
 		LOG_INFO(_game.logger, "{} v{}", Ricochet_NAME, Ricochet_VERSION);
 		LOG_INFO(_game.logger, "{}: {}", "Ricochet_DEVELOPER_MODE", 
 			Ricochet_DEVELOPER_MODE ? "ON" : "OFF");
-		LOG_INFO(_game.logger, "{}: {}", "Ricochet_BUILD_TESTS", 
-			Ricochet_BUILD_TESTS ? "ON" : "OFF");
 		LOG_INFO(_game.logger, "{}: {}", "Ricochet_ENABLE_DEBUG_LOGGING", 
 			Ricochet_ENABLE_DEBUG_LOGGING ? "ON" : "OFF");
 		LOG_INFO(_game.logger, "{}: {}", "Ricochet_ENABLE_IMGUI", 

@@ -1,0 +1,13 @@
+#pragma once
+
+#define Ricochet_NAME "Ricochet"
+
+#cmakedefine Ricochet_VERSION "@Ricochet_VERSION@"
+#cmakedefine Ricochet_HOMEPAGE_URL "@Ricochet_HOMEPAGE_URL@"
+#cmakedefine Ricochet_DESCRIPTION "@Ricochet_DESCRIPTION@"
+#cmakedefine Ricochet_MAINTAINER "@Ricochet_MAINTAINER@"
+
+#cmakedefine01 Ricochet_DEVELOPER_MODE
+#cmakedefine01 Ricochet_ENABLE_DEBUG_LOGGING
+#cmakedefine01 Ricochet_ENABLE_IMGUI
+#cmakedefine Ricochet_STATIC_DATA_DIR "@Ricochet_STATIC_DATA_DIR@"

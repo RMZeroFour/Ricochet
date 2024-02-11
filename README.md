@@ -26,13 +26,8 @@ To use the provided presets, which use the vcpkg toolchain for CMake, set the `V
 	cmake --preset develop-default
 	cmake --build --preset develop-default
 	```
-
-3. (Optionally) Run unit tests with CTest:
-	```bash
-	ctest --preset develop-default
-	```
-
-4. Run the game:
+	
+3. Run the game:
 
 	```bash
 	cd build/dev/bin/

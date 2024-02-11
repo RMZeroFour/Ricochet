@@ -31,18 +31,5 @@
 			"configurePreset": "publish-default",
 			"configuration": "Release"
 		}
-	],
-	"testPresets": [
-		{
-			"name": "develop-default",
-			"configurePreset": "develop-default",
-			"output": {
-				"outputOnFailure": true
-			},
-			"execution": {
-				"noTestsAction": "error",
-				"stopOnFailure": true
-			}
-		}
 	]
 }

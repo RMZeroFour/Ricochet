@@ -13,7 +13,7 @@ namespace
 	{
 		char* basePath{ SDL_GetBasePath() };
 		std::filesystem::path readRoot{ basePath };
-		readRoot /= Ricochet_DATA_DIR;
+		readRoot /= Ricochet_STATIC_DATA_DIR;
 		_game.readRoot = readRoot.lexically_normal();
 		SDL_free(basePath);
 	}

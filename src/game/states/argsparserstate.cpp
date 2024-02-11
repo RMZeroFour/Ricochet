@@ -1,6 +1,6 @@
 #include "game/states/argsparserstate.h"
 
-#include "generated/buildinfo.h"
+#include "buildinfo.h"
 #include "game/states/loginitstate.h"
 
 #include <argh.h>

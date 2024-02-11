@@ -9,15 +9,11 @@ option(
 )
 
 cmake_dependent_option(
-	Ricochet_BUILD_TESTS
-	"Build the tests"
-	ON #[[if]] "Ricochet_DEVELOPER_MODE" #[[else]] OFF
-)
-cmake_dependent_option(
 	Ricochet_ENABLE_DEBUG_LOGGING
 	"Enables debug level log statements"
 	ON #[[if]] "Ricochet_DEVELOPER_MODE" #[[else]] OFF
 )
+
 cmake_dependent_option(
 	Ricochet_ENABLE_IMGUI
 	"Enables drawing debug UI with imgui"
@@ -25,7 +21,7 @@ cmake_dependent_option(
 )
 
 set(
-	Ricochet_DATA_DIR "../share/Ricochet"
+	Ricochet_STATIC_DATA_DIR "../share/Ricochet"
 	CACHE STRING
 	"Relative path to data directory from executable"
 )

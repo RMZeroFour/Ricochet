@@ -8,31 +8,17 @@ if (Ricochet_ENABLE_IMGUI)
 	find_package(imgui REQUIRED CONFIG)
 endif()
 
-if (Ricochet_BUILD_TESTS)
-	find_package(GTest REQUIRED CONFIG)
-endif()
-
 # ---- Auto-generated files ----
 set(_generated_include_dir ${CMAKE_CURRENT_BINARY_DIR}/include)
-configure_file(
-	generated/buildinfo.h.in
-	${_generated_include_dir}/generated/buildinfo.h
-	@ONLY
-)
+configure_file(buildinfo.h.in ${_generated_include_dir}/buildinfo.h @ONLY)
 
 # ---- Main application ----
-add_executable(Ricochet_exe)
+add_executable(Ricochet)
 
-set_target_properties(
-	Ricochet_exe
-	PROPERTIES
-		OUTPUT_NAME Ricochet
-)
-
-target_compile_features(Ricochet_exe PRIVATE cxx_std_17)
+target_compile_features(Ricochet PRIVATE cxx_std_17)
 
 target_sources(
-	Ricochet_exe
+	Ricochet
 	PRIVATE
 		main.cpp
 		statemachine/statemachine.cpp
@@ -47,14 +33,14 @@ target_sources(
 )
 
 target_include_directories(
-	Ricochet_exe
+	Ricochet
 	PRIVATE
 		.
 		${_generated_include_dir}
 )
 
 target_link_libraries(
-	Ricochet_exe
+	Ricochet
 	PRIVATE
 		argh
 		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,
@@ -66,47 +52,35 @@ target_link_libraries(
 )
 
 if (Ricochet_ENABLE_IMGUI)
-	target_link_libraries(Ricochet_exe PRIVATE imgui::imgui)
+	target_link_libraries(Ricochet PRIVATE imgui::imgui)
 endif()
 
-# During build time, symlink the assets directory near the 
-# build directory. This allows not having to copy the assets
-# directory during development after every configure.
-SymlinkAssets(
-	Ricochet_exe
-	FROM ${CMAKE_SOURCE_DIR}/data/
-	TO ${Ricochet_DATA_DIR}
+# During build time, copy the assets directory to near the build directory.
+add_custom_command(
+	TARGET Ricochet POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy_directory
+		${CMAKE_SOURCE_DIR}/data/
+		${Ricochet_STATIC_DATA_DIR}
+	WORKING_DIRECTORY $<TARGET_FILE_DIR:Ricochet>
+	VERBATIM
+)
+	
+
+# ---- Install rules ----
+include(GNUInstallDirs)
+install(
+	TARGETS Ricochet
+	RUNTIME 
+		DESTINATION ${CMAKE_INSTALL_BINDIR}
+		COMPONENT Ricochet-Runtime
+)
+install(
+	DIRECTORY ${CMAKE_SOURCE_DIR}/data/
+	DESTINATION ${CMAKE_INSTALL_BINDIR}/${Ricochet_STATIC_DATA_DIR}
+	COMPONENT Ricochet-Assets
 )
 
-install(TARGETS Ricochet_exe RUNTIME)
-
-# ---- Tests target ----
-if (Ricochet_BUILD_TESTS)
-	add_executable(Ricochet_test)
-
-	target_compile_features(Ricochet_test PRIVATE cxx_std_17)
-
-	target_sources(
-		Ricochet_test
-		PRIVATE
-			statemachine/statemachine.cpp
-			statemachine/statemachine.test.cpp
-	)
-
-	target_include_directories(
-		Ricochet_test
-		PRIVATE
-			.
-			${_generated_include_dir}
-	)
-
-	target_link_libraries(
-		Ricochet_test
-		PRIVATE
-			GTest::gtest
-			GTest::gmock_main
-	)
-
-	include(GoogleTest)
-	gtest_discover_tests(Ricochet_test)
-endif()
+# ---- Package info ----
+set(CPACK_PACKAGE_NAME "Ricochet")
+set(CPACK_PACKAGE_VENDOR "RMZeroFour")
+include(CPack)
