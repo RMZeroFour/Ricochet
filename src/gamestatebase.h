@@ -1,7 +1,7 @@
 #pragma once
 
-#include "statemachine/statebase.h"
-#include "game/gamedata.h"
+#include "statebase.h"
+#include "gamedata.h"
 
 class GameStateBase : public StateBase
 {

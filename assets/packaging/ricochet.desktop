@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Ricochet
+Type=Application
+Terminal=false
+NoDisplay=false
+Exec=ricochet
+Icon=ricochet
+Categories=Game;

@@ -1,46 +1,48 @@
-# ---- Third party libraries ----
-find_package(argh REQUIRED CONFIG)
-find_package(SDL2 REQUIRED CONFIG)
-find_package(SDL2_image REQUIRED CONFIG)
-find_package(spdlog REQUIRED CONFIG)
+# ---- Helper modules ----
+include(GNUInstallDirs)
+include(VendorImGui)
 
-if (Ricochet_ENABLE_IMGUI)
-	find_package(imgui REQUIRED CONFIG)
+# ---- Third party libraries ----
+find_package(argh REQUIRED)
+find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
+find_package(spdlog REQUIRED)
+
+if(Ricochet_ENABLE_IMGUI)
+	VendorImGui(IF ${Ricochet_VENDOR_IMGUI})
+	if(NOT TARGET imgui::imgui)
+		find_package(imgui REQUIRED)
+	endif()
 endif()
 
 # ---- Auto-generated files ----
-set(_generated_include_dir ${CMAKE_CURRENT_BINARY_DIR}/include)
-configure_file(buildinfo.h.in ${_generated_include_dir}/buildinfo.h @ONLY)
+set(generated_include_dir ${CMAKE_CURRENT_BINARY_DIR}/include)
+configure_file(buildinfo.h.in ${generated_include_dir}/buildinfo.h @ONLY)
 
 # ---- Main application ----
-add_executable(Ricochet)
+add_executable(Ricochet_exe)
 
-target_compile_features(Ricochet PRIVATE cxx_std_17)
+target_compile_features(Ricochet_exe PRIVATE cxx_std_17)
 
 target_sources(
-	Ricochet
+	Ricochet_exe
 	PRIVATE
 		main.cpp
-		statemachine/statemachine.cpp
-		game/states/argsparserstate.cpp
-		game/states/loginitstate.cpp
-		game/states/sdlinitstate.cpp
-		game/states/imguiinitstate.cpp
-		game/states/dummystate.cpp
-		game/states/imguiquitstate.cpp
-		game/states/sdlquitstate.cpp
-		game/states/crashstate.cpp
+		statemachine.cpp
+		states/argsparserstate.cpp
+		states/loginitstate.cpp
+		states/sdlinitstate.cpp
+		states/imguiinitstate.cpp
+		states/dummystate.cpp
+		states/imguiquitstate.cpp
+		states/sdlquitstate.cpp
+		states/crashstate.cpp
 )
 
-target_include_directories(
-	Ricochet
-	PRIVATE
-		.
-		${_generated_include_dir}
-)
+target_include_directories(Ricochet_exe PRIVATE . ${generated_include_dir})
 
 target_link_libraries(
-	Ricochet
+	Ricochet_exe
 	PRIVATE
 		argh
 		$<IF:$<TARGET_EXISTS:SDL2::SDL2>,
@@ -49,38 +51,67 @@ target_link_libraries(
 		$<IF:$<TARGET_EXISTS:SDL2_image::SDL2_image>,
 			SDL2_image::SDL2_image,SDL2_image::SDL2_image-static>
 		spdlog::spdlog
+		$<TARGET_NAME_IF_EXISTS:imgui::imgui>
 )
 
-if (Ricochet_ENABLE_IMGUI)
-	target_link_libraries(Ricochet PRIVATE imgui::imgui)
+# ---- Platform specific properties ----
+if(Ricochet_PLATFORM_LINUX)
+	set_target_properties(
+		Ricochet_exe
+		PROPERTIES
+			OUTPUT_NAME ricochet
+	)
+elseif (Ricochet_PLATFORM_WINDOWS)
+	set_target_properties(
+		Ricochet_exe
+		PROPERTIES
+			OUTPUT_NAME Ricochet
+			WIN32_EXECUTABLE ON
+	)
 endif()
 
+# ---- Build tree layout ----
 # During build time, copy the assets directory to near the build directory.
-add_custom_command(
-	TARGET Ricochet POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_directory
-		${CMAKE_SOURCE_DIR}/data/
-		${Ricochet_STATIC_DATA_DIR}
-	WORKING_DIRECTORY $<TARGET_FILE_DIR:Ricochet>
-	VERBATIM
-)
-	
+if(Ricochet_PLATFORM_LINUX)
+	add_custom_target(
+		Ricochet_assets
+		${CMAKE_COMMAND} -E copy_directory
+			${CMAKE_SOURCE_DIR}/assets
+			$<TARGET_FILE_DIR:Ricochet_exe>/../share/ricochet
+		VERBATIM
+	)
+else()
+	add_custom_target(
+		Ricochet_assets
+		${CMAKE_COMMAND} -E copy_directory
+			${CMAKE_SOURCE_DIR}/assets
+			$<TARGET_FILE_DIR:Ricochet_exe>/assets
+		VERBATIM
+	)
+endif()
+add_dependencies(Ricochet_exe Ricochet_assets)
 
 # ---- Install rules ----
-include(GNUInstallDirs)
-install(
-	TARGETS Ricochet
-	RUNTIME 
-		DESTINATION ${CMAKE_INSTALL_BINDIR}
-		COMPONENT Ricochet-Runtime
-)
-install(
-	DIRECTORY ${CMAKE_SOURCE_DIR}/data/
-	DESTINATION ${CMAKE_INSTALL_BINDIR}/${Ricochet_STATIC_DATA_DIR}
-	COMPONENT Ricochet-Assets
-)
+install(TARGETS Ricochet_exe)
 
-# ---- Package info ----
-set(CPACK_PACKAGE_NAME "Ricochet")
-set(CPACK_PACKAGE_VENDOR "RMZeroFour")
-include(CPack)
+if(Ricochet_PLATFORM_LINUX)
+	install(
+		DIRECTORY ${CMAKE_SOURCE_DIR}/assets/textures
+		DESTINATION ${CMAKE_INSTALL_DATADIR}/ricochet
+	)
+	
+	install(
+		FILES ${CMAKE_SOURCE_DIR}/assets/packaging/ricochet.desktop
+		DESTINATION ${CMAKE_INSTALL_DATADIR}/applications
+	)
+	
+	install(
+		FILES ${CMAKE_SOURCE_DIR}/assets/packaging/ricochet.png
+		DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/256x256/apps
+	)
+else()
+	install(
+		DIRECTORY ${CMAKE_SOURCE_DIR}/assets/textures
+		DESTINATION ${CMAKE_INSTALL_BINDIR}/assets
+	)
+endif()

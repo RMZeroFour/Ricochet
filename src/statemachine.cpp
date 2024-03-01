@@ -1,6 +1,6 @@
-#include "statemachine/statemachine.h"
+#include "statemachine.h"
 
-#include "statemachine/transition.h"
+#include "transition.h"
 
 void StateMachine::ProcessCurrent()
 {

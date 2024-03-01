@@ -2,16 +2,25 @@
 	"version": 3,
 	"configurePresets": [
 		{
+			"name": "common-vars-phony",
+			"cacheVariables": {
+				"CMAKE_POLICY_DEFAULT_CMP0135": "NEW"
+			}
+		},
+		{
 			"name": "develop-default",
+			"inherits": "common-vars-phony",
 			"binaryDir": "build/dev",
 			"toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
 			"cacheVariables": {
 				"Ricochet_DEVELOPER_MODE": "ON",
+				"Ricochet_VENDOR_IMGUI": "OFF",
 				"CMAKE_BUILD_TYPE": "Debug"
 			}
 		},
 		{
 			"name": "publish-default",
+			"inherits": "common-vars-phony",
 			"binaryDir": "build/pub",
 			"toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
 			"cacheVariables": {

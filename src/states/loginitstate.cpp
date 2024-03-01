@@ -1,6 +1,6 @@
-#include "game/states/loginitstate.h"
+#include "states/loginitstate.h"
 
-#include "game/states/sdlinitstate.h"
+#include "states/sdlinitstate.h"
 #include "buildinfo.h"
 #include "helpers/log_wrappers.h"
 

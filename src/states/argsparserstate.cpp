@@ -1,7 +1,7 @@
-#include "game/states/argsparserstate.h"
+#include "states/argsparserstate.h"
 
 #include "buildinfo.h"
-#include "game/states/loginitstate.h"
+#include "states/loginitstate.h"
 
 #include <argh.h>
 
@@ -21,8 +21,8 @@ namespace
 	{
 		std::cout << Ricochet_NAME << " v" << Ricochet_VERSION << '\n';
 		std::cout << Ricochet_DESCRIPTION << '\n';
-		std::cout << "Project Website: " << Ricochet_HOMEPAGE_URL << '\n';
-		std::cout << "Maintained By: " << Ricochet_MAINTAINER << '\n';
+		std::cout << "Website: " << Ricochet_HOMEPAGE_URL << '\n';
+		std::cout << "Maintainer: " << Ricochet_MAINTAINER << '\n';
 	}
 }
 

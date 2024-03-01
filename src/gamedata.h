@@ -1,6 +1,6 @@
 #pragma once
 
-#include "game/sdldata.h"
+#include "sdldata.h"
 
 #include <spdlog/spdlog.h>
 #include <argh.h>
@@ -17,6 +17,6 @@ struct GameData
 	std::shared_ptr<spdlog::logger> logger;
 	std::optional<SDLData> sdl;
 	
-	std::filesystem::path readRoot;
-	std::filesystem::path writeRoot;
+	std::filesystem::path staticRoot;
+	std::filesystem::path dynamicRoot;
 };

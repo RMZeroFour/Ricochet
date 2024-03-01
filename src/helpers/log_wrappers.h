@@ -9,7 +9,7 @@
 #define LOG_DEBUG(logger, ...)                                          \
 	do                                                                  \
 	{                                                                   \
-		if (Ricochet_ENABLE_DEBUG_LOGGING)                              \
+		if constexpr (Ricochet_ENABLE_DEBUG_LOGGING)                    \
 		{                                                               \
 			logger->log(SOURCE_LOC, spdlog::level::debug, __VA_ARGS__); \
 		}                                                               \

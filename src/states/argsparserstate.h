@@ -1,6 +1,6 @@
 #pragma once
 
-#include "game/gamestatebase.h"
+#include "gamestatebase.h"
 
 class ArgsParserState : public GameStateBase
 {

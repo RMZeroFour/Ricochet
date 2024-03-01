@@ -1,5 +1,5 @@
-#include "game/states/argsparserstate.h"
-#include "statemachine/statemachine.h"
+#include "states/argsparserstate.h"
+#include "statemachine.h"
 
 #include <SDL2/SDL_main.h>
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "game/gamestatebase.h"
+#include "gamestatebase.h"
 #include "helpers/log_wrappers.h"
 
 class LogInitState : public GameStateBase

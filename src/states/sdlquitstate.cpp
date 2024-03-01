@@ -1,4 +1,4 @@
-#include "game/states/sdlquitstate.h"
+#include "states/sdlquitstate.h"
 
 #include <SDL2/SDL_image.h>
 

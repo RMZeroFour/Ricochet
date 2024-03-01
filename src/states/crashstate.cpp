@@ -1,4 +1,4 @@
-#include "game/states/crashstate.h"
+#include "states/crashstate.h"
 
 #include "buildinfo.h"
 #include "helpers/log_wrappers.h"
